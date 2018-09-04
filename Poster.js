@@ -12,7 +12,7 @@ setInterval(async () => {
 		const post = posts[Math.floor(Math.random() * posts.length)];
 		await request
 			.post(`https://discordapp.com/api/webhooks/${POSTER_ID}/${POSTER_TOKEN}`)
-			.send({ content: `**r/${subreddit}** ${post.title}\n${post.url}` });
+			.send({ content: `**r/${subreddit}** ${post.data.title}\n${post.data.url}` });
 	} catch (err) {
 		console.error('[MEME POSTER]', err);
 	}
