@@ -7,7 +7,13 @@ const subreddits = require('./assets/json/subreddits');
 setInterval(async () => {
 	try {
 		const subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
-		const { body } = await request.get(`https://www.reddit.com/r/${subreddit}/hot.json`);
+		const { body } = await request
+			.get(`https://www.reddit.com/r/${subreddit}/top.json`)
+			.query({
+				sort: 'top',
+				t: 'day',
+				limit: 100
+			});
 		const posts = body.data.children.filter(post => post.data && post.data.post_hint === 'image' && post.data.url);
 		if (!posts.length) throw new Error(`No images in r/${subreddit}.`);
 		const post = posts[Math.floor(Math.random() * posts.length)];
