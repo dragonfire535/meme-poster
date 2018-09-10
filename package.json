@@ -27,7 +27,7 @@
 	},
 	"homepage": "https://github.com/dragonfire535/meme-poster#readme",
 	"engines": {
-		"node": ">=10.1.0"
+		"node": ">=8"
 	},
 	"dependencies": {
 		"dotenv": "^6.0.0",
