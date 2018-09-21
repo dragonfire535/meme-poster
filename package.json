@@ -1,6 +1,6 @@
 {
 	"name": "meme-poster",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"description": "Posts memes from a variety of subreddits to a Discord Webhook on an interval.",
 	"main": "Poster.js",
 	"scripts": {

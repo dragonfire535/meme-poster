@@ -14,8 +14,11 @@ setInterval(async () => {
 				t: 'day',
 				limit: 100
 			});
-		const posts = body.data.children.filter(post => post.data && post.data.post_hint === 'image' && post.data.url);
-		if (!posts.length) throw new Error(`No images in r/${subreddit}.`);
+		const posts = body.data.children.filter(post => {
+			if (!post.data) return false;
+			return post.data.post_hint === 'image' && post.data.url && post.data.title && !post.data.over_18;
+		});
+		if (!posts.length) return;
 		const post = posts[Math.floor(Math.random() * posts.length)];
 		await request
 			.post(`https://discordapp.com/api/webhooks/${POSTER_ID}/${POSTER_TOKEN}`)
