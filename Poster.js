@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { POSTER_ID, POSTER_TOKEN, POSTER_TIME } = process.env;
 const request = require('node-superfetch');
-const time = Number.parseFloat(POSTER_TIME) || 1.8e+6;
+const time = Number.parseFloat(POSTER_TIME) || 3.6e+6;
 const subreddits = require('./assets/json/subreddits');
 
 setInterval(async () => {
