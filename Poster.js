@@ -9,12 +9,8 @@ setInterval(async () => {
 	try {
 		const subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
 		const { body } = await request
-			.get(`https://www.reddit.com/r/${subreddit}/top.json`)
-			.query({
-				sort: 'top',
-				t: 'day',
-				limit: 100
-			});
+			.get(`https://www.reddit.com/r/${subreddit}/hot.json`)
+			.query({ limit: 100 });
 		const posts = body.data.children.filter(post => {
 			if (!post.data) return false;
 			return types.includes(post.data.post_hint) && post.data.url && post.data.title && !post.data.over_18;
