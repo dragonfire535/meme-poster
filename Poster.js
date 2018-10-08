@@ -1,8 +1,16 @@
 require('dotenv').config();
 const { POSTER_ID, POSTER_TOKEN, POSTER_TIME } = process.env;
 const request = require('node-superfetch');
+const winston = require('winston');
 const time = Number.parseFloat(POSTER_TIME) || 3.6e+6;
 const subreddits = require('./assets/json/subreddits');
+const logger = winston.createLogger({
+	transports: [new winston.transports.Console()],
+	format: winston.format.combine(
+		winston.format.timestamp({ format: 'MM/DD/YYYY HH:mm:ss' }),
+		winston.format.printf(log => `[${log.timestamp}] [${log.level.toUpperCase()}]: ${log.message}`)
+	)
+});
 const types = ['image', 'rich:video'];
 
 setInterval(async () => {
@@ -16,11 +24,12 @@ setInterval(async () => {
 			return types.includes(post.data.post_hint) && post.data.url && post.data.title && !post.data.over_18;
 		});
 		if (!posts.length) return;
-		const post = posts[Math.floor(Math.random() * posts.length)];
+		const post = posts[Math.floor(Math.random() * posts.length)].data;
 		await request
 			.post(`https://discordapp.com/api/webhooks/${POSTER_ID}/${POSTER_TOKEN}`)
-			.send({ content: `**r/${subreddit}** ${post.data.title}\n${post.data.url}` });
+			.send({ content: `**r/${subreddit}** ${post.title}\n${post.url}` });
+		logger.info(`Posted "${post.title}" from r/${subreddit}.`);
 	} catch (err) {
-		console.error('[MEME POSTER]', err);
+		logger.error(err);
 	}
 }, time);

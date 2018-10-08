@@ -31,7 +31,8 @@
 	},
 	"dependencies": {
 		"dotenv": "^6.0.0",
-		"node-superfetch": "^0.1.9"
+		"node-superfetch": "^0.1.9",
+		"winston": "^3.1.0"
 	},
 	"devDependencies": {
 		"eslint": "^5.6.1",
