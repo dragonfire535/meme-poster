@@ -27,7 +27,7 @@ setInterval(async () => {
 		const post = posts[Math.floor(Math.random() * posts.length)].data;
 		await request
 			.post(`https://discordapp.com/api/webhooks/${POSTER_ID}/${POSTER_TOKEN}`)
-			.send({ content: `**r/${subreddit}** ${post.title}\n${post.url}` });
+			.send({ content: `**r/${subreddit}** [${post.title}](https://www.reddit.com${post.permalink})\n${post.url}` });
 		logger.info(`Posted "${post.title}" from r/${subreddit}.`);
 	} catch (err) {
 		logger.error(err);
